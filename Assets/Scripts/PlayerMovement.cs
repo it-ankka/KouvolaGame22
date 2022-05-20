@@ -12,6 +12,10 @@ public class PlayerMovement : MonoBehaviour
     public float gravity = -9.81f;
     public float jumpHeight = 3f;
     public float fallDamageHeight = 10f;
+    public bool isSprinting = false;
+    public float sprintingMultiplier;
+    public float stamina;
+    public bool hasRegenerated = true;
 
     // Ground check
     public Transform groundCheck;
@@ -56,18 +60,48 @@ public class PlayerMovement : MonoBehaviour
             float z = Input.GetAxis("Vertical");
             Vector3 move = Vector3.Normalize(transform.right * x + transform.forward * z);
 
-            controller.Move(move * speed * Time.deltaTime);
+
 
             if (Input.GetButton("Jump") && isGrounded)
             {
                 velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             }
+
+            if (Input.GetKey(KeyCode.LeftShift) && hasRegenerated == true)
+            {
+                isSprinting = true;
+                stamina -= 1 / (1 / Time.deltaTime);
+                if (stamina <= 0)
+                {
+                    hasRegenerated = false;
+                }
+            }
+            else
+            {
+                isSprinting = false;
+                if(stamina < 8f)
+                {
+                    stamina += 1 / (1 / Time.deltaTime);
+                }
+                if(stamina >= 3)
+                {
+                    hasRegenerated = true;
+                }
+            }
+
+            if (isSprinting == true)
+            {
+                move *= sprintingMultiplier;
+            }
+
+            controller.Move(move * speed * Time.deltaTime);
         }
 
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
 
+       
     }
 
     void FallDamageHandler()
