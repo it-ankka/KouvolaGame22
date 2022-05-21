@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance;
     public GameObject PlayerPrefab;
+    public float transitionTime = 1f;
+    Animator transition;
     string curPlayerSpawnId { get; set; }
     bool isInitialScene = true;
     // Start is called before the first frame update
@@ -24,8 +26,8 @@ public class GameManager : MonoBehaviour
         SceneManager.UnloadSceneAsync(oldScene);
 
         initializePlayerInScene();
-            
-    }
+        if(transition) transition.SetTrigger("Loaded");
+    }     
     
     void initializePlayerInScene() 
     {
@@ -52,10 +54,18 @@ public class GameManager : MonoBehaviour
         }
     }
     
-    public void changeScene(SceneName sceneName, string playerSpawnId = null) {
-        instance.curPlayerSpawnId = playerSpawnId;
-        SceneManager.LoadScene(sceneName.ToString(), LoadSceneMode.Additive);
+    public void changeScene(SceneName sceneName, string playerSpawnId = null) 
+    {
         isInitialScene = false;
+        instance.curPlayerSpawnId = playerSpawnId;
+        StartCoroutine(LoadScene(sceneName));
+    }
+    
+    IEnumerator LoadScene(SceneName sceneName) 
+    {
+        transition.SetTrigger("Start");
+        yield return new WaitForSeconds(transitionTime);
+        SceneManager.LoadScene(sceneName.ToString(), LoadSceneMode.Additive);
     }
     
     void Awake() {
@@ -75,7 +85,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        transition = GameObject.Find("CrossFade").GetComponent<Animator>();
     }
 
     // Update is called once per frame

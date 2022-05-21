@@ -12,10 +12,6 @@ public class MouseLook : MonoBehaviour
 
     float xRotation = 0f;
 
-    private bool automatic = true;
-
-
-
     // Start is called before the first frame update
     void Start()
     {
