@@ -96,7 +96,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 2147483647
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: a33e8c6da126b284eba408cd4e82bcd6, type: 2}
   m_TargetDisplay: 0
@@ -142,7 +142,11 @@ GameObject:
   - component: {fileID: 7511170727164641984}
   - component: {fileID: 7511170727164641985}
   - component: {fileID: 7511170727164641981}
+  - component: {fileID: 1606839397987513735}
+  - component: {fileID: 1396651937650877589}
   - component: {fileID: 7511170727164641982}
+  - component: {fileID: 8938206960634925030}
+  - component: {fileID: 3657610729587190222}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -158,7 +162,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7511170727164641988}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -386.4, y: 20.72, z: 308.9}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -231,10 +235,35 @@ CharacterController:
   m_Height: 2
   m_Radius: 0.5
   m_SlopeLimit: 45
-  m_StepOffset: 0.8
+  m_StepOffset: 0.4
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1606839397987513735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7511170727164641988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deef30ee16d642045a858c891e28a194, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory: {fileID: 11400000, guid: 74f5a935e2c8faf41ba07cb5a36b41cc, type: 2}
+--- !u!114 &1396651937650877589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7511170727164641988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e2688aae69e70b43824ad43ed94c4a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7511170727164641982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,8 +280,39 @@ MonoBehaviour:
   gravity: -14
   jumpHeight: 0.5
   fallDamageHeight: 8
+  isSprinting: 0
+  sprintingMultiplier: 1.5
+  stamina: 10
+  hasRegenerated: 1
   groundCheck: {fileID: 7511170726407405343}
   groundDistance: 0.4
   groundMask:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &8938206960634925030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7511170727164641988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f52d1bbd17d4cea46bae8db8347fac53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxInteractDistance: 3
+--- !u!136 &3657610729587190222
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7511170727164641988}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
