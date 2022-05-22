@@ -23,11 +23,12 @@ public class GameManager : MonoBehaviour
     void onSceneLoaded(Scene scene, LoadSceneMode mode) {
         Scene oldScene = SceneManager.GetActiveScene();
         SceneManager.SetActiveScene(scene);
-        SceneManager.UnloadSceneAsync(oldScene);
+        // Don't unload if only scene
+        if(!oldScene.Equals(scene)) SceneManager.UnloadSceneAsync(oldScene);
 
         initializePlayerInScene();
         if(transition) transition.SetTrigger("Loaded");
-        enablePlayerControls();
+        Player.instance.enablePlayerControls();
     }     
     
     void initializePlayerInScene() 
@@ -58,21 +59,10 @@ public class GameManager : MonoBehaviour
         instance.curPlayerSpawnId = playerSpawnId;
         StartCoroutine(LoadScene(sceneName));
     }
-    
-    void disablePlayerControls() {
-        Player.instance.GetComponent<Interact>().enabled = false;
-        Player.instance.GetComponent<CharacterController>().enabled = false;
-    }
-    
-    void enablePlayerControls() 
-    {
-        Player.instance.GetComponent<Interact>().enabled = true;
-        Player.instance.GetComponent<CharacterController>().enabled = true;
-    }
-    
+        
     IEnumerator LoadScene(SceneName sceneName) 
     {
-        disablePlayerControls();
+        Player.instance.disablePlayerControls();
         transition.SetTrigger("Start");
         yield return new WaitForSeconds(transitionTime);
         SceneManager.LoadScene(sceneName.ToString(), LoadSceneMode.Additive);
