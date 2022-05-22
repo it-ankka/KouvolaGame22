@@ -42,7 +42,6 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded && velocity.y < 0)
         {
             controller.stepOffset = stepOffset;
-            FallDamageHandler();
             velocity.y = -2f;
         }
         else if (isGrounded)
@@ -94,23 +93,13 @@ public class PlayerMovement : MonoBehaviour
                 move *= sprintingMultiplier;
             }
 
-            controller.Move(move * speed * Time.deltaTime);
+            if(controller.enabled) controller.Move(move * speed * Time.deltaTime);
         }
 
         velocity.y += gravity * Time.deltaTime;
 
-        controller.Move(velocity * Time.deltaTime);
+        if(controller.enabled) controller.Move(velocity * Time.deltaTime);
 
        
-    }
-
-    void FallDamageHandler()
-    {
-        float fallHeight = Mathf.Pow(velocity.y, 2) / -2f / gravity;
-        if (fallHeight > fallDamageHeight)
-        {
-            int damage = (int)((fallHeight - fallDamageHeight) * 20);
-            Debug.Log("Damaged player for: " + damage);
-        }
     }
 }

@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
 
         initializePlayerInScene();
         if(transition) transition.SetTrigger("Loaded");
+        Player.instance.GetComponent<CharacterController>().enabled = true;
     }     
     
     void initializePlayerInScene() 
@@ -63,6 +64,7 @@ public class GameManager : MonoBehaviour
     
     IEnumerator LoadScene(SceneName sceneName) 
     {
+        Player.instance.GetComponent<CharacterController>().enabled = false;
         transition.SetTrigger("Start");
         yield return new WaitForSeconds(transitionTime);
         SceneManager.LoadScene(sceneName.ToString(), LoadSceneMode.Additive);
