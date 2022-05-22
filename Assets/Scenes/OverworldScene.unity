@@ -499,7 +499,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2587407320582106394, guid: faf12187f2c10374f8c67b4679c8a858, type: 3}
       propertyPath: m_Name
-      value: GAMEMAP_NEW
+      value: GAMEMAP
       objectReference: {fileID: 0}
     - target: {fileID: 2587407320582106394, guid: faf12187f2c10374f8c67b4679c8a858, type: 3}
       propertyPath: m_StaticEditorFlags

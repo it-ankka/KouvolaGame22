@@ -16,6 +16,6 @@ public class SceneStarter : MonoBehaviour
                go.name = pf.name;
             }
         }
-
+        Destroy(this.gameObject);
     }
 }

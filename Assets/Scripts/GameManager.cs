@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
 
         initializePlayerInScene();
         if(transition) transition.SetTrigger("Loaded");
-        Player.instance.GetComponent<CharacterController>().enabled = true;
+        enablePlayerControls();
     }     
     
     void initializePlayerInScene() 
@@ -47,11 +47,8 @@ public class GameManager : MonoBehaviour
             }   
 
             Transform spawnLocation = spawnPoint.transform;
-            CharacterController controller = Player.instance.GetComponent<CharacterController>();
-            controller.enabled = false;
             Player.instance.transform.position = spawnLocation.position;
             Player.instance.transform.rotation = spawnLocation.rotation;
-            controller.enabled = true;
         }
     }
     
@@ -62,9 +59,20 @@ public class GameManager : MonoBehaviour
         StartCoroutine(LoadScene(sceneName));
     }
     
+    void disablePlayerControls() {
+        Player.instance.GetComponent<Interact>().enabled = false;
+        Player.instance.GetComponent<CharacterController>().enabled = false;
+    }
+    
+    void enablePlayerControls() 
+    {
+        Player.instance.GetComponent<Interact>().enabled = true;
+        Player.instance.GetComponent<CharacterController>().enabled = true;
+    }
+    
     IEnumerator LoadScene(SceneName sceneName) 
     {
-        Player.instance.GetComponent<CharacterController>().enabled = false;
+        disablePlayerControls();
         transition.SetTrigger("Start");
         yield return new WaitForSeconds(transitionTime);
         SceneManager.LoadScene(sceneName.ToString(), LoadSceneMode.Additive);
