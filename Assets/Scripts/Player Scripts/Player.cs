@@ -21,6 +21,10 @@ public class Player : MonoBehaviour
     }
     public void disablePlayerControls() {
         instance.GetComponent<Interact>().enabled = false;
+        disablePlayerMovement();
+    }
+    
+    public void disablePlayerMovement() {
         instance.GetComponent<CharacterController>().enabled = false;
         Camera.main.GetComponent<MouseLook>().enabled = false;
     }
